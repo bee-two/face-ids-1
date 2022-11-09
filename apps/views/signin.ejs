@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập</title>
+    <%- include("admin/layout/head.ejs") %>
+    <link
+      href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+
+    <!------ Include the above in your HEAD tag ---------->
+  </head>
+  <body>
+    <div class="container">
+      <div
+        id="loginbox"
+        style="margin-top: 50px"
+        class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2"
+      >
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <div class="panel-title">Đăng nhập</div>
+            <!-- <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="/updateuser">Đổi mật khẩu?</a></div> -->
+          </div>
+          <div class="text-center"></div>
+          <div style="padding-top: 30px" class="panel-body">
+            <% if (data && data.error){ %>
+            <div
+              id="login-alert"
+              class="alert alert-danger col-sm-12"
+              style="text-align: center"
+            >
+              <%= data.error %>
+            </div>
+            <%}%>
+            <form
+              id="loginform"
+              class="form-horizontal"
+              role="form"
+              method="post"
+              action=""
+            >
+              <div style="margin-bottom: 25px" class="input-group">
+                <span class="input-group-addon"
+                  ><i class="fa fa-user"></i
+                ></span>
+                <input
+                  id="login-email"
+                  type="text"
+                  class="form-control"
+                  name="email"
+                  value=""
+                  placeholder="Tên tài khoản"
+                />
+              </div>
+
+              <div style="margin-bottom: 25px" class="input-group">
+                <span class="input-group-addon"
+                  ><i class="fa fa-lock"></i
+                ></span>
+                <input
+                  id="login-password"
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  placeholder="Mật khẩu?"
+                />
+              </div>
+
+              <!-- <div class="input-group">
+                                      <div class="checkbox">
+                                        <label>
+                                          <input id="login-remember" type="checkbox" name="remember" value="1"> Nhớ tài khoản
+                                        </label>
+                                      </div>
+                                    </div> -->
+
+              <div style="margin-top: 10px" class="form-group">
+                <div class="col-sm-12 controls" style="text-align: center">
+                  <input
+                    id="btn-login"
+                    type="submit"
+                    class="btn btn-success"
+                    value="Đăng nhập"
+                  />
+                  <!-- <a id="btn-fblogin" href="#" class="btn btn-primary">Đăng nhập bằng Facebook</a> -->
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

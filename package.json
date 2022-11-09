@@ -1,0 +1,44 @@
+{
+  "name": "expressjs",
+  "version": "1.0.0",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  },
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Khac Duy",
+  "license": "ISC",
+  "dependencies": {
+    "@pusher/push-notifications-server": "^1.2.3",
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "connect-multiparty": "^2.2.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.17.1",
+    "express-rate-limit": "^6.4.0",
+    "express-session": "^1.17.1",
+    "formidable": "^1.2.2",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "node-schedule": "^2.0.0",
+    "npm": "^8.5.5",
+    "path": "^0.12.7",
+    "puppeteer": "^1.20.0",
+    "q": "^1.5.1",
+    "rand-token": "^1.0.1",
+    "socket.io": "^3.1.0",
+    "util": "^0.12.3",
+    "web-push": "^3.4.4"
+  }
+}

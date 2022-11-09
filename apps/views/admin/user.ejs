@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bee Web</title>
+    <%- include("layout/head.ejs") %>
+  </head>
+  <body>
+    <div class="container">
+      <%- include("layout/nav.ejs") %>
+      <div class="row" style="margin-bottom: 10px">
+        <div class="col-md-12">
+          <a href="/admin/signup" class="btn btn-success pull-right">Thêm User</a>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Tài khoản</div>
+        <!-- <form>
+                <input class="id" type="hidden" name="id" value ="">
+            </form> -->
+
+        <div class="panel-body">
+          <div class="table-responsive">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>User name</th>
+                    <th>Phân quyền</th>
+                    <th>Name</th>
+                    <th>Create Time</th>
+                    <th>Update Time</th>
+                    <th>Acction</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (data && data.users){%> <% for (var i= data.users.length-1; i > -1; i--) { %>
+                  <tr>
+                    <td><%= data.users.length-i %></td>
+                    <td><%= data.users[i].email %></td>
+                    <td><%= data.users[i].trackper %></td>
+                    <td><%= data.users[i].last_name %></td>
+                    <td><%= data.users[i].created_at %></td>
+                    <td><%= data.users[i].updated_at %></td>
+
+                    <% if (data && data.user.id == data.users[i].id){ %>
+                    <td></td>
+                    <% }else{ %>
+                    <td>
+                      <button href="/admin/delete"
+                        class="btn btn-danger user_delete"
+                        user_id="<%= data.users[i].id %>">
+                        Xóa
+                      </button>
+                    </td>
+                    <% } %>
+                  </tr>
+                  <% } %> <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/static/js/user.js"></script>
+  </body>
+</html>

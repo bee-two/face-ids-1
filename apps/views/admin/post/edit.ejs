@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa bài viết</title>
+    <%- include("../layout/head.ejs") %>
+</head>
+<body>
+    <div class="container">
+        <%- include("../layout/nav.ejs") %>
+         <div class="panel panel-default">
+             <div class="panel-heading"> Chỉnh sửa nội dung bài viết </div>
+            <div class="panel-body">
+                <div class="row">
+                   
+
+                            <% if (data && data.error){ %>
+                            <div id="login-alert" class="alert alert-danger col-sm-12" style="text-align:center">
+                                <%= data.error %>
+                            </div>
+                            <%}%>
+                        <form role="form" method="" action="">
+                            <input class="id" type="hidden" name="id" value =
+                            "<% if (data && data.post){%><%= data.post.id%><%}%>">
+                            <div class="form-group">
+                                <label>Tiêu đề</label>
+                                <input class="form-control title" name="title" placeholder="title" value =
+                                "<% if (data && data.post){%><%= data.post.title %><%}%>" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Nội dung</label>
+
+                                <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.6.2/tinymce.min.js" integrity="sha512-sOO7yng64iQzv/uLE8sCEhca7yet+D6vPGDEdXCqit1elBUAJD1jYIYqz0ov9HMd/k30e4UVFAovmSG92E995A==" crossorigin="anonymous"></script>
+                                <script> tinymce.init({selector:"textarea"});</script> -->
+
+                                <textarea class="form-control content" name="content" placeholder="content" id="content">
+                                <% if (data && data.post){%><%= data.post.content %><%}%></textarea>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label>Tác giả</label> -->
+                                <input class="form-control author" name="author" placeholder="author" type="hidden" value =
+                                "<% if (data && data.user){%><%= data.user.last_name %><%}%>">
+                            </div>
+                            <input type="button" value="Lưu sửa đổi" class="post_edit btn btn-success">
+                        </form>
+   
+                </div>
+            </div>
+         </div>
+    </div>
+    <script type="text/javascript" src="/static/js/post.js"></script>
+</body>
+</html>
+<!-- <script src="/static/ckeditor/ckeditor.js"></script> -->
+<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<script>
+     CKEDITOR.replace('content',{
+        extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/listimg',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'});//route  
+</script>

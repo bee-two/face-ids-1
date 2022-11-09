@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm bài viết</title>
+      <%- include("../layout/head.ejs") %>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.6.2/tinymce.min.js" integrity="sha512-sOO7yng64iQzv/uLE8sCEhca7yet+D6vPGDEdXCqit1elBUAJD1jYIYqz0ov9HMd/k30e4UVFAovmSG92E995A==" crossorigin="anonymous"></script>
+    <script> tinymce.init({selector:"textarea"});</script> -->
+    <!-- <script type="text/javascript">
+        var date = new Date().toLocaleString();
+        var created=document.getElementById("created_at");
+        created.value=date;
+
+    </script> -->
+</head>
+<body>
+    <div class="container">
+        <!-- <textarea class="form-control" name="content" id="content" placeholder="Nội dung"></textarea> -->
+        <%- include("../layout/nav.ejs") %>
+         <div class="panel panel-default">
+             <div class="panel-heading"> Thêm bài viết mới </div>
+            <div class="panel-body">
+                <div class="row">
+                
+                            <% if (data && data.error){ %>
+                            <div id="login-alert" class="alert alert-danger col-sm-12" style="text-align:center">
+                                <%= data.error %>
+                            </div>
+                            <%}%>
+                        <form role="form" method="POST" action="/admin/post/new">
+                            
+                            <div class="form-group">
+                                <label>Tiêu đề</label>
+                                <input class="form-control" name="title" placeholder="title">
+                            </div>
+                            <div class="form-group">
+                                <label>Nội dung</label>
+                                <textarea class="form-control" name="content" id="content" placeholder="Nội dung"></textarea>
+
+                            </div>
+                            <div class="form-group">
+                                <!-- <label>Tác giả</label> -->
+                                <input class="form-control" name="author" type="hidden" placeholder="author" value="<%-data.user.last_name  %>">
+                                <!-- <input class="form-control" name="created_at" id="created_at" type="hidden"> -->
+                            </div>
+                            <input type="submit" value="Thêm" class="btn btn-success">
+                        </form>
+                    
+                </div>
+            </div>
+         </div>
+    </div>
+    
+</body>
+
+
+</html>
+<!-- <script src="/static/ckeditor/ckeditor.js"></script> -->
+<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/inline/ckeditor.js"></script> -->
+<!-- <script> CKFinder.config( {connectorPath:'/static/ckfinder/connector'}); </script> -->
+<script type="text/javascript">
+    var editor=CKEDITOR.replace('content',{
+        extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/listimg',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'});//route 
+</script>

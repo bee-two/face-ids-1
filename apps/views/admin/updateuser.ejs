@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Update User Info</title>
+
+    <%- include("layout/head.ejs") %>
+    <!-- {
+        x_authorization: ... accessToken ...
+    } -->
+  </head>
+  <body>
+    <!-- {
+        refreshToken: ... refreshToken ...
+    } -->
+    <div class="container">
+      <div id="signupbox"
+        style="margin-top: 50px"
+        class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <div class="panel-title">Thay đổi thông tin người dùng</div>
+          </div>
+          <div class="panel-body">
+            <% if (data && data.error){ %>
+            <div id="signupalert"
+              class="alert alert-danger"
+              style="text-align: center">
+              <%= data.error %>
+            </div>
+            <%}%>
+
+            <form
+              id="signupform"
+              class="form-horizontal"
+              role="form"
+              method=""
+              action="">
+              <input class="id"
+                type="hidden"
+                name="id"
+                value="<% if (data && data.user){ %><%= data.user.id %><%}%>"/>
+              <!-- <div class="form-group">
+                            <label for="email" class="col-md-3 control-label">Tên đăng nhập</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="email" placeholder="Address" required value=
+                                "< if (data && data.user){%><= data.user.email ><}>">
+                            </div>
+                        </div> -->
+
+              <!-- <div class="form-group">
+                            <label for="password" class="col-md-3 control-label">Mật khẩu</label>
+                            <div class="col-md-9">
+                                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                            </div>
+                        </div> -->
+
+              <div class="form-group">
+                <label for="password" class="col-md-3 control-label">Mật khẩu mới</label>
+                <div class="col-md-9">
+                  <input type="password"
+                    class="form-control password"
+                    name="password"
+                    id="password"
+                    placeholder="New Password"
+                    required/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="repassword" class="col-md-3 control-label">Nhập lại MK</label>
+                <div class="col-md-9">
+                  <input
+                    type="password"
+                    class="form-control repassword"
+                    name="repassword"
+                    id="repassword"
+                    placeholder="Re-Type Password"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="lastname" class="col-md-3 control-label" required>Tên hiển thị</label>
+                <div class="col-md-9">
+                  <input type="text"
+                    class="form-control lastname"
+                    name="lastname"
+                    id="lastname"
+                    placeholder="Name"
+                    value="<% if (data && data.user){%><%= data.user.last_name %><%}%>"/>
+                </div>
+              </div>
+
+              <!--<div class="form-group">
+                            <label for="firstname" class="col-md-3 control-label">Phân quyền</label>
+                            <div style="margin-top:1%;">
+                                <input type="radio" style="margin-left:3%" name="permission" value="1"> Quản trị viên
+                                <input type="radio" style="margin-left:3%" name="permission" value="2"> Đội An ninh
+                                <input type="radio" style="margin-left:3%" name="permission" value="3" checked="checked"> Tài khoản khách
+                            </div>
+                        </div> -->
+
+              <div class="form-group">
+                <!-- Button -->
+                <div
+                  class="col-md-offset-3 col-md-6"
+                  style="text-align: center">
+                  <input type="button"
+                    class="update_user btn btn-info"
+                    value="Lưu thay đổi"/>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/static/js/user.js"></script>
+  </body>
+</html>

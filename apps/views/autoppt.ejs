@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Facebook</title>
+
+    <%- include("admin/layout/head.ejs") %>
+    <link
+      rel="stylesheet"
+      href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style type="text/css">
+      body {
+        font: 14px Helvetica, Arial;
+      }
+      #list-job-sv {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #list-job-sv li {
+        padding: 5px 10px;
+        height: auto;
+      }
+      ul li {
+        word-wrap: break-word;
+      }
+    </style>
+    <script src="//js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
+  </head>
+  <body>
+    <div class="container" style="display: none">
+      <%- include("admin/layout/nav.ejs") %>
+      <div class="container" style="width: 100%; text-align: center">
+        <div class="row">
+          <!-- Hộp Đăng nhập và Input -->
+          <div
+            id="divlogin"
+            style="display: block; height: 470px"
+            class="col-12 col-sm-3 col-md-3 col-lg-3 hide_cls_check"
+          >
+            <div
+              id="loginbox"
+              style="width: 100%; height: 470px"
+              class="mainbox"
+            >
+              <div
+                class="panel panel-info"
+                style="margin-bottom: 5px; height: 470px"
+              >
+                <div class="panel-heading text-center">
+                  <div class="panel-title"><b>List Job</b></div>
+                  <!-- <div style="clear: both;"></div>
+                        <div>(Nhập FB là riêng tư)</div> -->
+                </div>
+                <div class="text-center"></div>
+                <div style="padding-top: 15px" class="panel-body">
+                  <form
+                    id="loginform"
+                    class="form-horizontal"
+                    role="form"
+                    method=""
+                    action=""
+                  >
+                    <input
+                      type="hidden"
+                      name="username"
+                      id="username"
+                      value="<%- data.user.last_name %>"
+                    />
+                    <input
+                      type="hidden"
+                      name="id_user"
+                      id="id_user"
+                      value="<%- data.user.id %>"
+                    />
+                    <div style="clear: both"></div>
+                    <ul
+                      id="list-job-sv"
+                      class="mainbox"
+                      style="
+                        text-align: left;
+                        width: 100%;
+                        height: 320px;
+                        overflow: auto;
+                        border-style: double;
+                        margin-bottom: 5px;
+                        border-width: 3px;
+                        border-radius: 5px;
+                        border-color: rgb(135, 219, 252);
+                        padding: 5px;
+                      "
+                    >
+                      <!-- <li title="data.listjob" class="li-job" id="jobsv-data.name" style="margin-top:3px; border-radius: 3px; background-color: rgba(159, 255, 134, 0.699);"><button style="background:none; border: none;" id="btn-job-data.name" class="delete-jobsv"><i class="fa fa-remove fa-1x " style="color: rgb(250, 64, 64); margin-right: 5px;"></i></button>data[i].name <input type="checkbox" id="job-ip-data.name" checked class="checkbox-inline li-job-ip"></li>
+                                <li title="data.listjob" class="li-job" id="jobsv-data.name" style="margin-top:3px; border-radius: 3px; background-color: rgba(159, 255, 134, 0.699);"><button style="background:none; border: none;" id="icon-data-name" class="delete-jobsv"><i class="fa fa-remove fa-1x " style="color: rgb(250, 64, 64); margin-right: 5px;"></i></button>data[i].name <input type="checkbox" id="job-ip-data.name" class="checkbox-inline li-job-ip"></li> -->
+                    </ul>
+                    <!-- hộp nhập dữ lệu và nút bấm -->
+                    <div style="margin-bottom: 8px" class="input-group">
+                      <span class="input-group-addon"
+                        ><i class="fa fa-plus"></i
+                      ></span>
+                      <input
+                        id="textname"
+                        type="text"
+                        class="form-control"
+                        name="namedata"
+                        placeholder="name"
+                      />
+                    </div>
+                    <div style="margin-top: 5px" class="form-group">
+                      <div class="controls" style="text-align: center">
+                        <button id="btn-login" class="btn btn-info">
+                          Thêm công việc
+                        </button>
+                        <!-- <a id="btn-fblogin" href="#" class="btn btn-primary">Đăng nhập bằng Facebook</a> -->
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Hộp trung tâm -->
+          <div
+            id="divmain"
+            class="col-12 col-sm-9 col-md-9 col-lg-9"
+            style="min-height: 450px"
+          >
+            <div
+              id="content-box"
+              style="
+                display: block;
+                min-height: 470px;
+                height: 100%;
+                text-align: center;
+                border-style: dashed;
+                border-width: 3px;
+                border-radius: 5px;
+                border-color: rgb(135, 219, 252);
+                padding: 5px;
+              "
+            >
+              <div
+                class="mainbox col-9 col-sm-8 col-md-8 col-lg-9"
+                id="divmain1"
+              >
+                <!-- <div style="clear: both;"></div> -->
+                <div
+                  style="
+                    margin-bottom: 10px;
+                    height: 450px;
+                    border-style: dotted;
+                    border-width: 3px;
+                    border-radius: 5px;
+                    border-color: rgb(179, 246, 255);
+                  "
+                >
+                  <div class="panel panel-danger" style="margin-bottom: 2px">
+                    <div class="panel-heading text-center">
+                      <div class="panel-title">
+                        <b id="main-jobcn">Danh sách quét (facebook)</b>
+                        <input
+                          type="checkbox"
+                          style="
+                            width: 18px;
+                            height: 18px;
+                            padding: 0px;
+                            margin: 0px;
+                          "
+                          name="check_gr_auto"
+                          id="check_gr_auto"
+                          value="1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: both"></div>
+                  <ul
+                    id="list-account-fb-danger"
+                    change-id="list-account-fb-danger"
+                    class="mainbox"
+                    style="
+                      text-align: left;
+                      width: 100%;
+                      height: 88%;
+                      overflow: auto;
+                      padding: 5px;
+                    "
+                  >
+                    <!-- <a class="a-job-fb badge badge-warning" id="job-1" job-id="job-1" style="margin-top:3px; border-radius: 3px; background-color: rgba(13, 202, 171, 0.856);"><b style="color:brown;">(1) </b>data</a> -->
+                  </ul>
+                </div>
+                <!-- <div style="clear: both; margin-top: 5px;"></div> -->
+              </div>
+
+              <!-- list tài khoản fb -->
+              <div
+                class="col-3 col-sm-4 col-md-4 col-lg-3 hide_cls_check"
+                style="height: 450px"
+              >
+                <div
+                  style="
+                    height: 50%;
+                    min-height: 200px;
+                    max-height: 450px;
+                    border-style: inset;
+                    border-width: 3px;
+                    border-radius: 5px;
+                    border-color: rgb(179, 246, 255);
+                  "
+                >
+                  <div class="panel panel-primary" style="margin-bottom: 2px">
+                    <div class="panel-heading text-center">
+                      <div class="panel-title"><b>Account FB</b></div>
+                    </div>
+                  </div>
+                  <div style="clear: both"></div>
+                  <ul
+                    id="list-account-fb"
+                    class="mainbox"
+                    style="
+                      text-align: left;
+                      width: 100%;
+                      height: 80%;
+                      overflow: auto;
+                      padding: 5px;
+                    "
+                  ></ul>
+                </div>
+                <div
+                  style="
+                    height: 50%;
+                    margin-top: 3px;
+                    border-style: inset;
+                    border-width: 3px;
+                    border-radius: 5px;
+                    border-color: rgb(179, 246, 255);
+                  "
+                >
+                  <div class="panel panel-danger" style="margin-bottom: 2px">
+                    <div class="panel-heading text-center">
+                      <div class="panel-danger"><b>Key-danger</b></div>
+                    </div>
+                  </div>
+                  <div style="clear: both"></div>
+                  <ul
+                    id="list-keys-fb"
+                    class="mainbox"
+                    style="
+                      text-align: left;
+                      width: 100%;
+                      height: 63%;
+                      overflow: auto;
+                      padding: 5px;
+                      margin-bottom: 2px;
+                    "
+                  ></ul>
+                  <div style="clear: both"></div>
+                  <div>
+                    <div style="margin-top: 5px" class="input-group">
+                      <input
+                        id="textkeys"
+                        type="text"
+                        class="form-control"
+                        name="textkeys"
+                        placeholder="add Key"
+                      />
+                      <span
+                        style="
+                          color: rgb(0, 89, 255);
+                          background-color: rgb(30, 255, 68);
+                        "
+                        class="input-group-addon"
+                        ><button
+                          id="btn-keys"
+                          style="
+                            background-color: unset;
+                            border-color: unset;
+                            border: none;
+                            box-shadow: unset;
+                            display: inline-block;
+                          "
+                        >
+                          <i class="fa fa-plus"></i></button
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hide_cls_check">
+        <div class="col-12 col-sm-3 col-md-3 col-lg-3">
+          <div
+            style="
+              margin-bottom: 10px;
+              margin-top: 5px;
+              height: 250px;
+              border-style: dotted;
+              border-width: 3px;
+              border-radius: 5px;
+              border-color: rgb(179, 246, 255);
+            "
+            class=""
+          >
+            <div class="panel panel-success" style="margin-bottom: 5px">
+              <div class="panel-heading text-center">
+                <div class="panel-title"><b>Thời gian quét</b></div>
+              </div>
+            </div>
+            <div style="clear: both"></div>
+            <ul
+              id="list-time-auto"
+              change-id="list-time-auto"
+              class="mainbox"
+              style="
+                text-align: left;
+                width: 100%;
+                height: 153px;
+                overflow: auto;
+                padding: 5px;
+              "
+            ></ul>
+            <div style="clear: both"></div>
+            <div>
+              <div style="margin-top: 5px" class="input-group">
+                <input
+                  id="texttime"
+                  type="time"
+                  class="form-control"
+                  name="texttime"
+                  placeholder="hour:minute"
+                />
+                <span
+                  style="
+                    color: rgb(0, 89, 255);
+                    background-color: rgb(30, 255, 68);
+                  "
+                  class="input-group-addon"
+                  ><button
+                    id="btn-time"
+                    style="
+                      background-color: unset;
+                      border-color: unset;
+                      border: none;
+                      box-shadow: unset;
+                      display: inline-block;
+                    "
+                  >
+                    <i class="fa fa-plus"></i></button
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Hộp chứa giá trị facebook danger -->
+        <div class="col-12 col-sm-9 col-md-9 col-lg-9">
+          <!-- <div> -->
+
+          <div
+            class="mainbox col-12 col-sm-6 col-md-6 col-lg-6"
+            style="
+              margin-bottom: 10px;
+              margin-top: 5px;
+              height: 250px;
+              border-style: inset;
+              border-width: 3px;
+              border-radius: 5px;
+              border-color: rgb(179, 246, 255);
+            "
+          >
+            <div class="panel panel-info" style="margin-bottom: 2px">
+              <div class="panel-heading text-center">
+                <div class="panel-title"><b id="main-jobcn">Lệnh chạy</b></div>
+              </div>
+            </div>
+            <div style="clear: both"></div>
+            <div
+              id="list-job-running-fb"
+              change-id="list-job-running-fb"
+              class="mainbox"
+              style="
+                text-align: left;
+                width: 100%;
+                height: 200px;
+                overflow: auto;
+                padding: 5px;
+              "
+            >
+              <!-- <a class="a-job-fb badge badge-warning" id="job-1" job-id="job-1" style="margin-top:3px; border-radius: 3px; background-color: rgba(13, 202, 171, 0.856);"><b style="color:brown;">(1) </b>data</a> -->
+            </div>
+          </div>
+
+          <div
+            class="mainbox col-12 col-sm-6 col-md-6 col-lg-6"
+            style="
+              margin-bottom: 10px;
+              margin-top: 5px;
+              height: 250px;
+              border-style: dotted;
+              border-width: 3px;
+              border-radius: 5px;
+              border-color: rgb(179, 246, 255);
+            "
+          >
+            <div class="panel panel-info" style="margin-bottom: 2px">
+              <div class="panel-heading text-center">
+                <div class="panel-title"><b>Thêm chức năng</b></div>
+              </div>
+            </div>
+            <div style="clear: both"></div>
+            <!-- <div class="height: 50px;"> -->
+            <ul
+              id="list-job-fb"
+              class="mainbox"
+              style="
+                text-align: left;
+                width: 100%;
+                height: 200px;
+                overflow: auto;
+                padding: 5px;
+              "
+            ></ul>
+            <!-- </div> -->
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+    <!-- source chat -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.0/socket.io.js"
+      integrity="sha512-+l9L4lMTFNy3dEglQpprf7jQBhQsQ3/WvOnjaN/+/L4i0jOstgScV0q2TjfvRF4V+ZePMDuZYIQtg5T4MKr+MQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="/static/js/autofb.js"></script>
+  </body>
+</html>

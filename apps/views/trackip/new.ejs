@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm bài viết</title>
+      <%- include("../admin/layout/head.ejs") %>
+
+</head>
+<body>
+    <div class="container">
+
+         <div class="panel panel-default">
+             <div class="panel-heading"> Thêm bài viết mới </div>
+            <div class="panel-body">
+                <div class="row">
+                    <!-- <div class="col-lg-6"> -->
+
+                            <% if (data && data.error){ %>
+                            <div id="login-alert" class="alert alert-danger col-sm-12" style="text-align:center">
+                                <%= data.error %>
+                            </div>
+                            <%}%>
+                        <form role="form" method="POST" action="/track/new">
+                            
+                            <div class="form-group">
+                                <label>Tiêu đề của link</label>
+                                <input class="form-control" name="title" placeholder="title">
+                            </div>
+                            <div class="form-group">
+                                <label>Tiêu đề hiển thị bài viết</label>
+                                <input class="form-control" name="titleval" placeholder="title value">
+                            </div>
+                            <div class="form-group">
+                                <label>Link chuyển đến</label>
+                                <input type="url" class="form-control" name="link" id="link" placeholder="Nhập link">
+
+                            </div>
+                            <div class="form-group">
+                                <label>Ảnh hiển thị lên Link</label>
+                                <textarea class="form-control" name="content" id="content" placeholder="Nội dung"></textarea>
+
+                            </div>
+
+                            <!-- <div class="form-group col-lg-6">
+                                <label style="width: 150px;" class="control-label col-md-3">Trang Delay</label>
+                                <input type="number" style="width: auto;" min=0 max=5 class="form-control" name="check_delay" id="check_delay" placeholder="Đơn vị: Giây(s)">
+                            </div> -->
+
+                            <div class="form-inline" style="width: 150px;">
+                                <label style="width: 110px;" class="col-form-label-lg control-label">Tọa độ:</label>
+                                <input type="checkbox" style="width: 36px;" class="form-control input-group-lg" name="check_geo" id="check_geo" value=1>
+                            </div>
+                            <div class="form-inline" style="width: 150px;">
+                                <label style="width: 110px;" class="col-form-label-lg control-label">Camera:</label>
+                                <input type="checkbox" style="width: 36px;" class="form-control input-group-lg" name="check_img" id="check_img" value=1>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label>Tác giả</label> -->
+                                <input class="form-control" name="id_user" id="id_user" type="hidden" value="<%= data.user.id %>">
+                                <input class="form-control" name="name_user" id="name_user" type="hidden" value="<%= data.user.last_name %>">
+                                <!-- <input class="form-control" name="params_link" id="params_link" type="hidden" value=""> -->
+                            </div>
+                            <div style="clear: both;"></div>
+                        <div class="form-group" style="text-align: center;">
+                            <input  type="submit" value="Thêm" class="btn btn-success">
+                        </div>
+                        </form>
+                    <!-- </div> -->
+                </div>
+            </div>
+         </div>
+    </div>
+    <!-- <script type="text/javascript">
+      urlpr=document.getElementById("params_link");
+      urlpr.innerHTML= location.protocol + "//" + document.domain + ":" + location.port;
+    </script> -->
+    
+</body>
+</html>
+<!-- <script src="/static/ckeditor/ckeditor.js"></script> -->
+<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<script>
+     CKEDITOR.replace('content',{
+        extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/listimg',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'/upload'});//route  
+</script>

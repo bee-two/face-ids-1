@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List Image</title>
+    <!-- < %- include("admin/layout/head.ejs") %> -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script>
+      // Helper function to get parameters from the query string.
+      function getUrlParam(paramName) {
+        var reParam = new RegExp("(?:[\?&]|&)" + paramName + "=([^&]+)", "i");
+        var match = window.location.search.match(reParam);
+
+        return match && match.length > 1 ? match[1] : null;
+      }
+      // Simulate user action of selecting a file to be returned to CKEditor.
+      function returnFileUrl(link) {
+        var funcNum = getUrlParam("CKEditorFuncNum");
+        var fileUrl = link;
+        window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+        window.close();
+      }
+
+      function delimg(id) {
+        var base_url =
+          location.protocol + "//" + document.domain + ":" + location.port;
+        $.ajax({
+          url: base_url + "/deleteimg",
+          type: "DELETE",
+          data: { id: id },
+          dataType: "json",
+          success: function (res) {
+            if (res && res.status_code == 200) {
+              location.reload();
+            }
+          },
+        });
+      }
+
+      document.oncontextmenu = RightMouseDown;
+      function RightMouseDown() {
+        return false;
+      }
+    </script>
+
+    <style type="text/css">
+      img:hover {
+        border-style: groove;
+        border-width: 4px;
+        border-color: chartreuse;
+      }
+      /* img:focus {
+            border-style: solid;
+            border-width: 3px;
+            border-color: chartreuse;
+        } */
+    </style>
+  </head>
+  <body>
+    <!-- <div> -->
+    <% if (data && data.listID){%> <% for (var i= data.listID.length-1; i > -1;
+    i--) { %>
+    <!-- <div style="padding: 10px; width: 150px; height: 150px;"> -->
+    <img
+      onclick="returnFileUrl(this.src)"
+      oncontextmenu="delimg('<%= data.listID[i].id %>')"
+      src="/photo/<%= data.listID[i].id %>"
+      alt="<%= data.listID[i].id %>"
+      style="width: auto; height: 120px"
+    />
+    <!-- </div> -->
+    <% } %> <% } %>
+    <!-- </div> -->
+  </body>
+</html>

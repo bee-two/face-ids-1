@@ -1,0 +1,64 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-default">
+    <!-- Brand/logo -->
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#example-1"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand menunavi" href="#">Menu</a>
+    </div>
+    <!-- Collapsible Navbar -->
+    <div class="collapse navbar-collapse" id="example-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="/blog"><b>Beeblogs</b></a>
+        </li>
+        <% if (data && data.trackper==1) { %>
+        <li>
+          <a class="menunavi_a2" href="/admin">Đăng blog</a>
+        </li>
+        <!-- < % } %>
+          < % if (data && data.trackper==1) { %>  -->
+        <li>
+          <a href="/admin/user">Quản lý Users</a>
+        </li>
+        <% } %> <% if (data && data.trackper <= 2) { %>
+        <li>
+          <a href="/giaoviec">Giao việc</a>
+        </li>
+        <% } %>
+        <li>
+          <a href="/track">Track-ip</a>
+        </li>
+        <% if (data && data.trackper==1) { %>
+        <li>
+          <a href="/stream-facebook">Stream-fb</a>
+        </li>
+        <li>
+          <a href="/auto-facebook">Auto-fb</a>
+        </li>
+        <% } %>
+        <li>
+          <a href="/admin/signin">
+            <% if (data && data.requser) {%> 
+            <%-"(User: "+ data.requser +")<b>Đăng xuất</b>" %> 
+            <% }else{ %> <%= "Đăng nhập" %> 
+            <% } %>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/updateuser/<%= data.user.id %>">Đổi MK</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

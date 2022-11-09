@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bee Chat</title>
+
+    <%- include("admin/layout/head.ejs") %>
+    <style type="text/css">
+      /* *{margin: 0; padding: 0; box-sizing: border-box;} */
+      body {
+        font: 16px Helvetica, Arial;
+      }
+      /* form { padding: 3px; position:fixed; bottom: 10px; text-align: center;} */
+      /* form input {border: 0; padding: 10px;  margin-right: 0.5%; width: 100%;border-radius: 5px;} */
+      /* form button {width: 4.5%;text-align: center;} */
+      #conversation {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #conversation li {
+        padding: 5px 10px;
+        height: auto;
+      }
+      ul li {
+        word-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="container">
+        <%- include("admin/layout/nav.ejs") %>
+        <ul id="conversation"></ul>
+        <div class="container" style="height: 80px"></div>
+      </div>
+    </div>
+    <div style="clear: both"></div>
+    <div
+      class="form-row text-center"
+      style="position: fixed; bottom: 10px; width: 100%"
+    >
+      <form id="formchat">
+        <div class="">
+          <input
+            type="text"
+            name="message"
+            id="message"
+            class="message form-control input-lg text-center"
+            placeholder="Nhập nội dung"
+            rows="2"
+          /><button
+            style="margin-top: 5px; border-radius: 5px"
+            class="btn btn-success form-control input-lg text-center"
+            id="btn_send"
+          >
+            Gửi
+          </button>
+        </div>
+        <input
+          type="hidden"
+          name="username"
+          id="username"
+          value="<%- data.user.last_name %> "
+        />
+        <input
+          type="hidden"
+          name="id_user"
+          id="id_user"
+          value="<%- data.user.id %>"
+        />
+      </form>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.0/socket.io.js"
+      integrity="sha512-+l9L4lMTFNy3dEglQpprf7jQBhQsQ3/WvOnjaN/+/L4i0jOstgScV0q2TjfvRF4V+ZePMDuZYIQtg5T4MKr+MQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      const URLserver=location.protocol + "//" + document.domain ;
+      var socket = io.connect(URLserver); // http://localhost:3000
+
+      socket.on("connect", function () {
+        console.log("User đang kết nối Server...");
+        //ask name
+        var username = $("#username").val();
+        var id_user = $("#id_user").val();
+        socket.emit("adduser", username, id_user);
+      });
+
+      //listen update message event
+      socket.on("update_message", function (datachat) {
+        $("#conversation").append(datachat);
+      });
+      //send message Event
+      $("#btn_send").click(function (e) {
+        //det massage
+        var message = $("#message").val();
+        $("#message").val("");
+        if (message.trim().length != 0) {
+          socket.emit("send_message", message);
+        }
+      });
+      $("#formchat").submit(function () {
+        return false;
+      });
+      //click enter
+      $("#message").keypress(function (e) {
+        if (e.which == 13) {
+          $("#btn_send").trigger("click");
+        }
+      });
+    </script>
+  </body>
+</html>

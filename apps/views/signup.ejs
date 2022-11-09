@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Đăng ký</title>
+
+    <%- include("admin/layout/head.ejs") %>
+
+  </head>
+  <body>
+    <div class="container">
+      <div
+        id="signupbox"
+        style="margin-top: 50px"
+        class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2"
+      >
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <div class="panel-title">Mẫu đăng ký</div>
+          </div>
+          <div class="panel-body">
+            <% if (data && data.error){ %>
+            <div
+              id="signupalert"
+              class="alert alert-danger"
+              style="text-align: center"
+            >
+              <%= data.error %>
+            </div>
+            <%}%>
+
+            <form
+              id="signupform"
+              class="form-horizontal"
+              role="form"
+              method="post"
+              action="/admin/signup"
+            >
+              <div class="form-group">
+                <label for="email" class="col-md-3 control-label"
+                  >Tên đăng nhập</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="email"
+                    placeholder="Address"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="password" class="col-md-3 control-label"
+                  >Mật khẩu</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="repassword" class="col-md-3 control-label"
+                  >Nhập lại MK</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="repassword"
+                    placeholder="Re-Type Password"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="lastname" class="col-md-3 control-label" required
+                  >Tên hiển thị</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="lastname"
+                    placeholder="Name"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="firstname" class="col-md-3 control-label"
+                  >Phân quyền</label
+                >
+                <div style="margin-top: 1%">
+                  <input
+                    type="radio"
+                    style="margin-left: 3%"
+                    name="permission"
+                    value="1"
+                  />
+                  Quản trị viên
+                  <input
+                    type="radio"
+                    style="margin-left: 3%"
+                    name="permission"
+                    value="2"
+                  />
+                  Đội An ninh
+                  <input
+                    type="radio"
+                    style="margin-left: 3%"
+                    name="permission"
+                    value="3"
+                    checked="checked"
+                  />
+                  Tài khoản khách
+                </div>
+              </div>
+
+              <div class="form-group">
+                <!-- Button -->
+                <div
+                  class="col-md-offset-3 col-md-6"
+                  style="text-align: center"
+                >
+                  <input
+                    id="btn-signup"
+                    type="submit"
+                    class="btn btn-info"
+                    value="Đăng ký"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
